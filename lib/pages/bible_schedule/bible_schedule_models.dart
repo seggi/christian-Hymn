@@ -73,22 +73,6 @@ class YearChecker extends DbBibleSchedule{
          }
        }
 
-      //  // Pick May data
-      // if(isLeapYear(pickYear) == true){
-      //     //we call the leapDB to extratect 
-      //    if(pickMonth == 5 ){
-      //      var takecontent = leapcontent['Mai'];
-      //      for(var content in takecontent){
-      //        if(content.containsKey(pickDay.toString())){
-      //          collection.add('Mai');
-      //          collection.add(pickDay.toString());
-      //          collection.add(content[pickDay.toString()]);
-      //          return collection;
-      //        }
-      //      }
-          
-      //    }
-      //  }
     
       //Pick February data
        if(isLeapYear(pickYear) == true){
@@ -308,22 +292,7 @@ class YearChecker extends DbBibleSchedule{
          }
        }
 
-      //  // Pick May data
-      // if(isLeapYear(pickYear) == true){
-      //     //we call the leapDB to extratect 
-      //    if(pickMonth == 5 ){
-      //      var takecontent = nonleapcontent['Mai'];
-      //      for(var content in takecontent){
-      //        if(content.containsKey(pickDay.toString())){
-      //          collection.add('Mai');
-      //          collection.add(pickDay.toString());
-      //          collection.add(content[pickDay.toString()]);
-      //          return collection;
-      //        }
-      //      }
-          
-      //    }
-      //  }
+     
     
       //Pick February data
        if(isLeapYear(pickYear) == false){
