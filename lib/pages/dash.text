@@ -1,0 +1,353 @@
+
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+class DbAllHymns {
+  Database _database;
+
+
+  Future<Database> get db async {
+    if(_database != null) return _database;
+    _database = await openDb();
+    return _database;
+  }
+
+  openDb() async {
+     String databasePath = await getDatabasesPath();
+     String path = join(databasePath, "christianHymn.db");
+     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+            
+     return db;
+
+  }
+   
+   _onCreate(Database db, int newVersion) async{
+    var sql = "CREATE TABLE cantiqueInpire(id INTEGER PRIMARYKEY, title TEXT, hymn TEXT)" ;
+    await db.execute(sql);
+  }
+
+
+  Future<void> insertHymnList(AllHymns hymn) async {
+    var dbClient = await db;
+    
+    await dbClient.insert("cantiqueInpire", 
+                          hymn.toMap(),
+                          conflictAlgorithm: ConflictAlgorithm.replace);
+
+    final hymncant = AllHymns(
+      id: 2,
+      title: 'Cantique',
+      hymn: "All is well!!!!"
+    );
+
+    await insertHymnList(hymncant);
+  }
+
+  Future<List> getHymnsList() async {
+    var dbClient = await db;
+    final List maps = await dbClient.query('cantiqueInpire');
+    print('seggi $maps');
+    return maps.toList();
+  }
+
+  Future closeDb() async{
+    var dbClient = await db;
+    dbClient.close();
+  }
+}
+
+
+class AllHymns {
+  int id;
+  String title;
+  String hymn;
+
+  AllHymns({@required this.hymn, @required this.title, this.id});
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'hymn': hymn,
+    };
+  }
+
+  AllHymns.fromMap(Map<String, dynamic> map) {
+    this.id = map['id'];
+    this.title = map['title'];
+    this.hymn = map['hymn'];
+  }
+}
+
+// Build the list facilitate the retrieve of data from database
+
+List<AllHymns> loadHymn() {
+  final DbAllHymns _dballhymns = DbAllHymns();
+  List<AllHymns> hymnsgot = new List();
+
+  _dballhymns.getHymnsList().then((hymnfind) =>
+      hymnfind.forEach((hymn) => hymnsgot.add(AllHymns.fromMap(hymn))));
+
+  return hymnsgot;
+}
+
+dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
+//    final myHyms = query.isEmpty? loadHymn() : loadHymn().where((string) => 
+//                  string.title.toLowerCase().startsWith(query.toLowerCase())).toList();
+
+//     return myHyms.isEmpty? Text("No Hymns Found...", style: TextStyle(fontSize: 20),):  ListView.builder(
+//        itemCount: myHyms.length,
+//        itemBuilder: (context, index) {
+//          final AllHymns hymnsList = myHyms[index];
+//          return ListTile(
+//            title: RichText(
+//              text: TextSpan(
+//                text:hymnsList.title.substring(0, query.length),
+//                style: TextStyle(
+//                  color: Colors.black, fontWeight: FontWeight.bold),
+//                children: [TextSpan(
+//                  text: hymnsList.title.substring(query.length),
+//                  style: TextStyle(color: Colors.grey)
+//                  )
+//                ]
+//              ),
+//            ),
+          
+//            onTap: () {
+//              //showResults(context);
+//              Navigator.push(
+//                context, 
+//                MaterialPageRoute(
+//                  builder: (context) => Hymn(),
+//                  settings: RouteSettings(
+//                    arguments: HymnList(hymnsList.title, hymnsList.hymn)
+//                  )
+//                )
+//              );
+//            },
+//          );
+//        }
+//      );
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+// Pick January data
+      // if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Janvier'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Janvier');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //         return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      
+
+      // // Pick February data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Février'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Février');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //         return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick March data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Mars'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Mars');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //        return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick Abril data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Avril'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Avril');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //         return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick May data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Mai'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Mai');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //         return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick June data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Juin'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Juin');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //         return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick July data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Juillet'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Juillet');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //          return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick August data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Août'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Août');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //          return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick Semptember data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Septembre'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Septembre');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //          return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick October data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Octobre'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Octobre');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //          return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick November data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Novembre'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Novembre');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //          return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
+
+      // // Pick December data
+      // else if(isLeapYear(pickYear) == true){
+      //   // we call the leapDB to extratect 
+      //   if(pickMonth == 1 ){
+      //     var takecontent = leapcontent['Decembre'];
+      //     for(var content in takecontent){
+      //       if(content.containsKey(pickDay.toString())){
+      //         collection.add('Decembre');
+      //         collection.add(pickDay.toString());
+      //         collection.add(content[pickDay.toString()]);
+
+      //          return collection;
+      //       }
+      //     }
+          
+      //   }
+      // }
