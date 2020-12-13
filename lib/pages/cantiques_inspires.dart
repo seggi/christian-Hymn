@@ -21,7 +21,6 @@ class CantiqueInspires extends StatefulWidget {
 }
 
 class _CantiqueInspires extends State<CantiqueInspires> {
-  //final myallhymns = loadHymn();
   final DbAllHymns dbAllHymns = DbAllHymns();
   List<AllHymns>  hymnlist;
 
@@ -30,7 +29,6 @@ class _CantiqueInspires extends State<CantiqueInspires> {
     return Scaffold (
       appBar: AppBar(
         title: Text("Cantiques Inspirés"),
-        // backgroundColor: Colors.blueGrey,
         backgroundColor: Colors.teal,
         actions: <Widget>[
           Padding(
