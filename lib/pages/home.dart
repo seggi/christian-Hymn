@@ -279,18 +279,7 @@ class _CustomHome extends State<Home> {
                                       ],
                                     ),
                                   ),
-                                // Divider(color: Colors.blueGrey),
-                                // Divider(color: Colors.blueGrey),
-                                // Divider(color: Colors.blueGrey),
-                                //  Padding(
-                                //     padding: EdgeInsets.only(top: 20,left: 10.0),
-                                //     child: IconButton(
-                                //       icon: Icon(Icons.settings_applications,),
-                                //       color: Colors.white,
-                                //       iconSize: 40.0, 
-                                //       onPressed: (){},
-                                //     ),
-                                //   )
+                               
                                 ],
                               )
 
@@ -306,26 +295,7 @@ class _CustomHome extends State<Home> {
           )
         ),
 
-        // bottomNavigationBar: BottomAppBar(
-        //   color: Colors.teal.shade100,
-        //   shape: CircularNotchedRectangle(),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: <Widget>[
-        //       Text( 
-        //         'nanKim', 
-        //         style: TextStyle(
-        //           fontSize: 20.0,
-        //           fontWeight: FontWeight.normal,
-        //           color: Colors.black54,
-        //           fontFamily: 'Montserrat',
-        //           ),
-        //         textAlign: TextAlign.right,
-        //       )
-        //     ],
-        //   ),
-        // ),
-
+       
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.info_outline),
@@ -355,23 +325,11 @@ class TopContent extends StatelessWidget{
                   width: _width/4.3,
                   height: 150.0,
                   padding: EdgeInsets.all(8.0),
-                  // elevation: 8.0,
-                  // color: Colors.white,
-                  // margin: EdgeInsets.all(8.0),
-                  // shape: OutlineInputBorder(borderSide: BorderSide(color: Colors.deepOrange)),
+                  
                   child: Card(
                     elevation: 0.0,
                     margin: EdgeInsets.fromLTRB(0.0, 20.0, 0, 0),
                     color: Colors.white,
-                    // shape: OutlineInputBorder(
-                    //   borderRadius: BorderRadius.only(
-                    //     bottomLeft: Radius.circular(30.0),
-                    //     bottomRight: Radius.circular(300.0),
-                    //     ),
-                      
-                    //   borderSide: BorderSide(color: Colors.blue),
-                      
-                    //   ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -447,7 +405,6 @@ class TopContent extends StatelessWidget{
                   child: Text(
                       'Lecture du jour',
                       textAlign: TextAlign.center,
-                      // ignore: deprecated_member_use
                       style: Theme.of(context).textTheme.title.copyWith(color: Colors.grey),
                     ),
                 ),
